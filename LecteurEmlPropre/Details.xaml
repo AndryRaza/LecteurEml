@@ -6,16 +6,34 @@
         xmlns:local="clr-namespace:LecteurEmlPropre"
         mc:Ignorable="d"
         Title="Details" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="10,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="12*" />
         </Grid.RowDefinitions>
-        <ScrollViewer  Grid.Row="0"  Grid.Column="0">
-            <TextBox x:Name="contenu" />
+        <TextBlock Text="Détails" Grid.Row="0" FontSize="22" />
+
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="7*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Content-Type :" Grid.Row="0" Grid.Column="0" />
+                <TextBlock x:Name="contentType" Grid.Row="0" Grid.Column="1" />
+
+            </Grid>
         </ScrollViewer>
 
+    
     </Grid>
 </Window>
