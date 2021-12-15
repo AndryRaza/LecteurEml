@@ -17,8 +17,12 @@
         <TextBlock Text="Détails" Grid.Row="0" FontSize="22" />
 
         <ScrollViewer Grid.Row="1">
-            <Grid>
-                <Grid.RowDefinitions>
+            <Grid x:Name="content">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <!--<Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -41,7 +45,7 @@
                 <TextBlock x:Name="deliveredTo" Grid.Row="1" Grid.Column="1" />
 
                 <TextBlock Text="Reçu :" Grid.Row="2" Grid.Column="0" />
-                <TextBlock x:Name="received" Grid.Row="2" Grid.Column="1" />
+                <TextBlock x:Name="received" Grid.Row="2" Grid.Column="1" />-->
 
             </Grid>
         </ScrollViewer>

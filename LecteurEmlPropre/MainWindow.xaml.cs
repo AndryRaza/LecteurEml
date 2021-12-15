@@ -68,7 +68,6 @@ namespace LecteurEmlPropre
     
                 if (eml.Headers.To != null)
                 {
-                    Console.WriteLine(eml.Headers.To);
                     to.Text = String.Join("\r\n", eml.Headers.To);
                 }
 
@@ -88,6 +87,22 @@ namespace LecteurEmlPropre
                 body.Text = System.Text.Encoding.UTF8.GetString(eml.TextBody.Body);
             }
 
+            if(eml.Attachments != null)
+            {
+                pj.Text = $"Pièces jointes : \r\n ({eml.Attachments.Count})";
+                //string txt = String.Join("\r\n",eml.Attachments);
+                string txt = "";
+                foreach(var att in eml.Attachments)
+                {
+                    if (att.IsAttachment)
+                    {
+                        txt += "\r\n" + att.FileName;
+                    }
+                 
+                }
+                pj_.Text = txt.Trim();
+                
+            }
         }
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)
