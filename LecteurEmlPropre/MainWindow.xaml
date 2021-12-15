@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LecteurEmlPropre"
         mc:Ignorable="d"
-        Title="EML" Height="450" Width="800" HorizontalAlignment="Left" VerticalAlignment="Top">
+        Title="EML" Height="550" Width="800" HorizontalAlignment="Left" VerticalAlignment="Top" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -15,6 +15,7 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
+ 
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -49,11 +50,14 @@
                     <ColumnDefinition Width="10*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="à" Grid.Column="0"  Height="20" TextAlignment="Center"  />
-                <TextBox x:Name="to" Grid.Column="1" Text="John Doe &lt;john.doe@hotmail.com&gt;"  Height="20" TextAlignment="Center" IsReadOnly="True" />
+                <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                    <TextBox x:Name="to"  Text="John Doe &lt;john.doe@hotmail.com&gt;"   TextAlignment="Center" IsReadOnly="True" VerticalAlignment="Center" />
+                </ScrollViewer>
+ 
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="0,0,10,0">
+        <Grid Grid.Row="2" Margin="0,10,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="10*"></ColumnDefinition>

@@ -55,13 +55,13 @@ namespace LecteurEmlPropre
         private void traitement()
         {
             string txtContenttype = "";
+            string txtReceived = "";
 
             string[] arr = Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
-
-            foreach (string str in arr)
+            for(int i = 0;i < arr.Length;i++)
             {
-
-                if (str.StartsWith("Content-Type"))
+                string str = arr[i];
+                if (str.StartsWith("Content-Type") || str.StartsWith("Content-type"))
                 {
                     if (txtContenttype == "")
                     {
@@ -72,9 +72,29 @@ namespace LecteurEmlPropre
                         txtContenttype += "\r\n" + extractContentType(str);
                     }
                 }
+
+                if (str.StartsWith("Delivered-To") || str.StartsWith("Delivered-to"))
+                {
+                    deliveredTo.Text = str.Split(' ')[1];
+                }
+
+                if(str.StartsWith("Received"))
+                {
+                    if (received.Text == "")
+                    {
+                        txtReceived +=  extractReceived(arr, i);
+                    }
+                    else
+                    {
+                        txtReceived += "\r\n" + extractReceived(arr, i);
+                    }
+                   
+                }
+
             }
 
             contentType.Text = txtContenttype;
+            received.Text = txtReceived;
         }
 
         private string extractContentType(string str)
@@ -87,6 +107,22 @@ namespace LecteurEmlPropre
             string txtContenttype = String.Join("", arr);
 
             return txtContenttype;
+        }
+
+        private string extractReceived(string[] arr,int start)
+        {
+            string txtReceived = String.Join("",delete(1,arr[start].Split(' ')));
+
+
+            int i = start + 1;
+
+            while(arr[i].StartsWith(" "))
+            {
+                txtReceived += "\r\n" + arr[i];
+                i++;
+            }
+
+            return txtReceived;
         }
 
         //Supprimer un élément dans une liste

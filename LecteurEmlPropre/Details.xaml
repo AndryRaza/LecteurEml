@@ -22,6 +22,12 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -30,6 +36,12 @@
 
                 <TextBlock Text="Content-Type :" Grid.Row="0" Grid.Column="0" />
                 <TextBlock x:Name="contentType" Grid.Row="0" Grid.Column="1" />
+
+                <TextBlock Text="Livré à :" Grid.Row="1" Grid.Column="0" />
+                <TextBlock x:Name="deliveredTo" Grid.Row="1" Grid.Column="1" />
+
+                <TextBlock Text="Reçu :" Grid.Row="2" Grid.Column="0" />
+                <TextBlock x:Name="received" Grid.Row="2" Grid.Column="1" />
 
             </Grid>
         </ScrollViewer>

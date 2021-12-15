@@ -26,6 +26,12 @@ namespace LecteurEmlPropre
             InitializeComponent();
         }
 
+        public MsgReader.Mime.Message eml
+        {
+            get;
+            set;
+        }
+
         private bool pathChoosen = false;
 
 
@@ -51,7 +57,7 @@ namespace LecteurEmlPropre
         {
             var fileInfo = new FileInfo(path);
 
-            var eml = MsgReader.Mime.Message.Load(fileInfo);
+            eml = MsgReader.Mime.Message.Load(fileInfo);
             if (eml.Headers != null)
             {
 
@@ -62,6 +68,7 @@ namespace LecteurEmlPropre
     
                 if (eml.Headers.To != null)
                 {
+                    Console.WriteLine(eml.Headers.To);
                     to.Text = String.Join("\r\n", eml.Headers.To);
                 }
 
