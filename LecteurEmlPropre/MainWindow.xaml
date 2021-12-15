@@ -1,0 +1,80 @@
+﻿<Window x:Class="LecteurEmlPropre.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LecteurEmlPropre"
+        mc:Ignorable="d"
+        Title="EML" Height="450" Width="800" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Text="Chemin du fichier eml" Grid.Column="0" x:Name="path" Width="500" Height="20" IsReadOnly="True" />
+            <Button x:Name="btnPath" Content="Upload" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnPath_Click"  />
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="De" Grid.Column="0"  Height="20" TextAlignment="Center"  />
+                <TextBox x:Name="from" Grid.Column="1" Text="John Doe &lt;john.doe@hotmail.com&gt;"  Height="20" TextAlignment="Center" IsReadOnly="True" />
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="à" Grid.Column="0"  Height="20" TextAlignment="Center"  />
+                <TextBox x:Name="to" Grid.Column="1" Text="John Doe &lt;john.doe@hotmail.com&gt;"  Height="20" TextAlignment="Center" IsReadOnly="True" />
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,0,10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Cc" Grid.Column="0" TextAlignment="Center" Height="20"  />
+            <TextBox Grid.Column="1" x:Name="cc" IsReadOnly="True" />
+        </Grid>
+
+        <Grid Grid.Row="3" Margin="0,0,10,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="10*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Sujet" Grid.Column="0" TextAlignment="Center" Height="20"  />
+            <TextBox x:Name="subject" Grid.Column="1" Height="20" IsReadOnly="True"/>
+        </Grid>
+
+        <Grid Grid.Row="4" Grid.RowSpan="2" Margin="10,0,10,0">
+            <ScrollViewer>
+                <TextBox x:Name="body" IsReadOnly="True"/>
+            </ScrollViewer>
+         
+        </Grid>
+        
+    </Grid>
+</Window>
