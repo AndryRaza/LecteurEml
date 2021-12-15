@@ -19,9 +19,30 @@ namespace LecteurEmlPropre
     /// </summary>
     public partial class Details : Window
     {
+        public string path
+        {
+            get;
+            set;
+        }
         public Details()
         {
             InitializeComponent();
+      
         }
+
+        public Details(string str) : this()
+        {
+            path = str;
+            readEmlRaw(path);
+        }
+
+        private void readEmlRaw(string path)
+        {
+            System.IO.StreamReader sr = new System.IO.StreamReader(path);
+            string Text = sr.ReadToEnd();
+            sr.Close();
+            contenu.Text = Text;
+        }
+
     }
 }

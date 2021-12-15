@@ -26,6 +26,9 @@ namespace LecteurEmlPropre
             InitializeComponent();
         }
 
+        private bool pathChoosen = false;
+
+
         private void btnPath_Click(object sender, RoutedEventArgs e)
         {
 
@@ -38,6 +41,7 @@ namespace LecteurEmlPropre
 
             if (result == true)
             {
+                pathChoosen = true;
                 path.Text = dlg.FileName;
                 readEml(path.Text);
             }
@@ -46,6 +50,7 @@ namespace LecteurEmlPropre
         private void readEml(string path)
         {
             var fileInfo = new FileInfo(path);
+
             var eml = MsgReader.Mime.Message.Load(fileInfo);
             if (eml.Headers != null)
             {
@@ -76,6 +81,16 @@ namespace LecteurEmlPropre
                 body.Text = System.Text.Encoding.UTF8.GetString(eml.TextBody.Body);
             }
 
+        }
+
+        private void btnDetails_Click(object sender, RoutedEventArgs e)
+        {
+            if(pathChoosen)
+            {
+                var window = new Details(path.Text);
+                window.ShowDialog();
+            }
+           
         }
     }
 }
