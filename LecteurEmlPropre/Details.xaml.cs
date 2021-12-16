@@ -32,9 +32,10 @@ namespace LecteurEmlPropre
         }
 
         private List<Tuple<string, int>> arrHeaders = new List<Tuple<string, int>>();
+        private List<string> contentList = new List<string>();
 
         //On définit les champs que l'on souhaite récupérer
-        private string[] headers = new string[] {"Delivered-To","Received","X-Received","ARC-Seal","ARC-Message-Signature","Return-Path","Received","MIME-Version","From","Date","Message-ID","Subject","To","Cc","Content-Type","Content-type","Content-Transfer-Encoding","Content-ID","X-Attachment-Id","Content-Disposition","Version","Licence","In-Replay-To","User-Agent" };
+        private string[] headers = new string[] {"Delivered-To","Received","X-Received","ARC-Seal","ARC-Message-Signature","Return-Path","Received","MIME-Version","From","Date","Message-ID","Subject","To","Cc","Content-Type","Content-type","Content-Transfer-Encoding","Content-ID","X-Attachment-Id","Content-Disposition","Version","Licence","In-Replay-To","User-Agent","X-Original-To","References" };
 
         public Details()
         {
@@ -58,79 +59,8 @@ namespace LecteurEmlPropre
 
         private void traitement()
         {
-            string txtContenttype = "";
-            string txtReceived = "";
-
             string[] arr = Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
             extractGlobal(arr);
-
-
-            //for (int i = 0; i < arr.Length; i++)
-            //{
-            //    string str = arr[i];
-            //    if (str.StartsWith("Content-Type") || str.StartsWith("Content-type"))
-            //    {
-
-            //        txtContenttype += "\r\n" + extractContentType(str);
-
-            //    }
-
-            //    if (str.StartsWith("Delivered-To") || str.StartsWith("Delivered-to"))
-            //    {
-            //        deliveredTo.Text = str.Split(' ')[1];
-            //    }
-
-            //    if (str.StartsWith("Received"))
-            //    {
-            //        txtReceived += "\r\n" + extractReceived(arr, i);
-            //    }
-
-            //}
-
-            //contentType.Text = txtContenttype.Trim();
-            //received.Text = txtReceived.Trim();
-
-        }
-
-        private string extractContentType(string str)
-        {
-            string[] arr = str.Split(' ');
-
-            arr = delete(1, arr);
-
-
-            string txtContenttype = String.Join("", arr);
-
-            return txtContenttype;
-        }
-
-        private string extractReceived(string[] arr,int start)
-        {
-            string txtReceived = String.Join("",delete(1,arr[start].Split(' ')));
-
-
-            int i = start + 1;
-
-            while(arr[i].StartsWith(" "))
-            {
-                txtReceived += "\r\n" + arr[i];
-                i++;
-            }
-
-            return txtReceived;
-        }
-
-        //Supprimer un élément dans une liste à la position pos (logique tu vois)
-        private string[] delete(int pos, string[] arr)
-        {
-            string[] provi = arr;
-
-            for (int i = pos - 1; i < provi.Length - 1; i++)
-            {
-                provi[i] = provi[i + 1];
-            }
-
-            return provi;
         }
 
         private void extractGlobal(string[] arr)
@@ -146,23 +76,32 @@ namespace LecteurEmlPropre
                 {
                     d = i-d;
                     //On fait d-1 pour avoir le nbre exact de ligne entre chaque sans compter les headers
-                    arrHeaders.Add(new Tuple<string,int>(provi[0], d-1)); 
+                    arrHeaders.Add(new Tuple<string,int>(provi[0], d-1));
+                    if (d == 1 || i == 0)
+                    {
+                        contentList.Add(String.Join("", delete(1, provi)));
+                    }
+                    else
+                    {
+                        contentList.Add("a remplir");
+                    }
                     d = i;
                 }
                 i++;
             }
 
             createHeadersRow();
-        
+            createContentRow();
         }
         private void createHeadersRow()
         {
+            content.ColumnDefinitions.Add(new ColumnDefinition());
             int i = 0;
             foreach (Tuple<string,int> txt in arrHeaders)
             {
                 content.RowDefinitions.Add(new RowDefinition());
                 TextBlock t = new TextBlock();
-                t.Text = $"{txt.Item1} {txt.Item2.ToString()}"  ;
+                t.Text = $"{txt.Item1}"  ;
                 Grid.SetRow(t, i);
                 Grid.SetColumn(t, 0);
                 content.Children.Add(t);
@@ -170,5 +109,104 @@ namespace LecteurEmlPropre
             }
         }
 
+        private void createContentRow()
+        {
+            int i = 0;
+            content.ColumnDefinitions.Add(new ColumnDefinition());
+            foreach (string c in contentList)
+            {
+                TextBlock t = new TextBlock();
+                t.Text = $"{c}";
+                Grid.SetRow(t, i);
+                Grid.SetColumn(t, 1);
+                content.Children.Add(t);
+                i++;
+            }
+        }
+
+
+        //Supprimer un élément dans une liste à la position pos (logique tu vois)
+        private string[] delete(int pos, string[] arr)
+        {
+            string[] provi = arr;
+
+            for (int i = pos - 1; i < provi.Length - 1; i++)
+            {
+                provi[i] = provi[i + 1];
+            }
+
+            return provi;
+        }
+
+
+        //Partie Obsolète
+        /* 
+        private void traitement()
+        {
+            string txtContenttype = "";
+            string txtReceived = "";
+
+            string[] arr = Text.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            extractGlobal(arr);
+
+
+            for (int i = 0; i < arr.Length; i++)
+            {
+                string str = arr[i];
+                if (str.StartsWith("Content-Type") || str.StartsWith("Content-type"))
+                {
+
+                    txtContenttype += "\r\n" + extractContentType(str);
+
+                }
+
+                if (str.StartsWith("Delivered-To") || str.StartsWith("Delivered-to"))
+                {
+                    deliveredTo.Text = str.Split(' ')[1];
+                }
+
+                if (str.StartsWith("Received"))
+                {
+                    txtReceived += "\r\n" + extractReceived(arr, i);
+                }
+
+            }
+
+            contentType.Text = txtContenttype.Trim();
+            received.Text = txtReceived.Trim();
+
+        }
+
+        private string extractContentType(string str)
+        {
+            string[] arr = str.Split(' ');
+
+            arr = delete(1, arr);
+
+
+            string txtContenttype = String.Join("", arr);
+
+            return txtContenttype;
+        }
+
+        private string extractReceived(string[] arr, int start)
+        {
+            string txtReceived = String.Join("", delete(1, arr[start].Split(' ')));
+
+
+            int i = start + 1;
+
+            while (arr[i].StartsWith(" "))
+            {
+                txtReceived += "\r\n" + arr[i];
+                i++;
+            }
+
+            return txtReceived;
+        }
+
+
+
+        */
     }
 }
