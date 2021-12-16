@@ -31,8 +31,10 @@ namespace LecteurEmlPropre
             set;
         }
 
-        private List<string> arrHeaders = new List<string>();
+        private List<Tuple<string, int>> arrHeaders = new List<Tuple<string, int>>();
 
+        //On définit les champs que l'on souhaite récupérer
+        private string[] headers = new string[] {"Delivered-To","Received","X-Received","ARC-Seal","ARC-Message-Signature","Return-Path","Received","MIME-Version","From","Date","Message-ID","Subject","To","Cc","Content-Type","Content-type","Content-Transfer-Encoding","Content-ID","X-Attachment-Id","Content-Disposition","Version","Licence","In-Replay-To","User-Agent" };
 
         public Details()
         {
@@ -133,27 +135,34 @@ namespace LecteurEmlPropre
 
         private void extractGlobal(string[] arr)
         {
+            int i = 0;
+            //d est la distance entre deux headers
+            int d = 0;
+
             foreach(string txt in arr)
             {
                 string[] provi = txt.Split(' ');
-                if(provi[0].EndsWith(":"))
+                if(provi[0].EndsWith(":") && ( headers.Contains(provi[0].Remove(provi[0].Length - 1, 1))  )  )
                 {
-                    arrHeaders.Add(provi[0]);
+                    d = i-d;
+                    //On fait d-1 pour avoir le nbre exact de ligne entre chaque sans compter les headers
+                    arrHeaders.Add(new Tuple<string,int>(provi[0], d-1)); 
+                    d = i;
                 }
+                i++;
             }
 
             createHeadersRow();
         
         }
-
         private void createHeadersRow()
         {
             int i = 0;
-            foreach(string txt in arrHeaders)
+            foreach (Tuple<string,int> txt in arrHeaders)
             {
                 content.RowDefinitions.Add(new RowDefinition());
                 TextBlock t = new TextBlock();
-                t.Text = txt;
+                t.Text = $"{txt.Item1} {txt.Item2.ToString()}"  ;
                 Grid.SetRow(t, i);
                 Grid.SetColumn(t, 0);
                 content.Children.Add(t);
@@ -161,6 +170,5 @@ namespace LecteurEmlPropre
             }
         }
 
-        //Faire une liste de couple (texte,distance entre les headers) 
     }
 }
