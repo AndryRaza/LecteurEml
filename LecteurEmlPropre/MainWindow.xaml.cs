@@ -98,6 +98,9 @@ namespace LecteurEmlPropre
                     {
                         txt += "\r\n" + att.FileName;
                     }
+
+                    //att.Save(new FileInfo(@"C:\Users\widoo\Documents\sources\Pièces Jointes\" + att.FileName));
+                    
                  
                 }
                 pj_.Text = txt.Trim();
@@ -112,7 +115,14 @@ namespace LecteurEmlPropre
                 var window = new Details(path.Text);
                 window.ShowDialog();
             }
-           
+        }
+
+        private void savePJ_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(var att in eml.Attachments)
+            {
+                att.Save(new FileInfo(@"C:\Users\widoo\Documents\sources\Pièces Jointes\" + att.FileName));
+            }
         }
     }
 }

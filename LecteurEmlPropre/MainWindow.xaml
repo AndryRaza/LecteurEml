@@ -24,11 +24,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="7*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBox Text="Chemin du fichier eml" Grid.Column="0" x:Name="path" Width="500" Height="20" IsReadOnly="True" />
             <Button x:Name="btnPath" Content="Upload" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnPath_Click"  />
-            <Button x:Name="btnDetails" Content="+ de détails" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnDetails_Click" />
+            <Button x:Name="btnDetails" Content="+ de détails" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnDetails_Click" />
+            <Button x:Name="savePJ" Content="Sauvegarder les pj" Grid.Column="2" VerticalAlignment="Center" HorizontalContentAlignment="Center" Click="savePJ_Click" />
         </Grid>
 
         <Grid Grid.Row="1" Margin="0,0,10,0">
