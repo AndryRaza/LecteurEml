@@ -99,9 +99,7 @@ namespace LecteurEmlPropre
                         txt += "\r\n" + att.FileName;
                     }
 
-                    //att.Save(new FileInfo(@"C:\Users\widoo\Documents\sources\Pièces Jointes\" + att.FileName));
-                    
-                 
+               
                 }
                 pj_.Text = txt.Trim();
                 
@@ -119,10 +117,14 @@ namespace LecteurEmlPropre
 
         private void savePJ_Click(object sender, RoutedEventArgs e)
         {
-            foreach(var att in eml.Attachments)
+            string path = @"C:\Users\" + Environment.UserName + @"\Documents\sources\Pièces Jointes\";
+            foreach (var att in eml.Attachments)
             {
-                att.Save(new FileInfo(@"C:\Users\widoo\Documents\sources\Pièces Jointes\" + att.FileName));
+                att.Save(new FileInfo(path + att.FileName));
             }
+
+            MessageBox.Show("Les pièces jointes ont été enregistrées \r\n"+path, "Succès",MessageBoxButton.OK, MessageBoxImage.Information);
+       
         }
     }
 }
